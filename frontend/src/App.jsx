@@ -6,6 +6,10 @@ import { getChatContract } from './constants/contracts';
 import { readOnlyProvider } from './constants/providers';
 import { useEffect, useState } from "react";
 
+// library imports
+import { ToastContainer } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
 
 configureWeb3Modal();
 
@@ -67,6 +71,7 @@ function App() {
           
           
       </div>
+      <ToastContainer/>
     </div>
   )
 }

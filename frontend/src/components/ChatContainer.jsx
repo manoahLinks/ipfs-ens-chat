@@ -5,6 +5,8 @@ import useGetEnsByAddr from '../hooks/useGetEnsByAddr';
 import { useWeb3ModalAccount } from "@web3modal/ethers/react";
 import { getChatContract } from '../constants/contracts';
 import { readOnlyProvider } from '../constants/providers';
+import { url } from 'inspector';
+
 
 function ChatContainer() {
 
@@ -58,8 +60,8 @@ function ChatContainer() {
                {chats.length !== 0  && chats.map((chat)=> (
                     <div key={chat.name} className='p-2 flex gap-x-4 shadow items-center hover:cursor-pointer hover:bg-white rounded-lg'>
                         <span className='p-2 rounded-full  bg-gradient-to-r from-purple-300 to-red-500'>
-                            <HiOutlineUser size={30}/>
-                            {/* <img src="https://gateway.pinata.cloud/ipfs/QmbpSTSWPunskgdZaTJ2t6vXdXe4caFfdwbmU4HjwkSvBe" className='w-20 h-20' alt="" /> */}
+                            {/* <HiOutlineUser size={30}/> */}
+                            <img src={URL.createObjectURL(chat.avatar)} className='w-full' alt="ipfs img" />
                         </span>
                         <div className='flex flex-col gap-y-1'>
                             <h4 className='font-bold text-slate-400'>{chat.name}</h4>

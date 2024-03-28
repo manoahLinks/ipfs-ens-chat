@@ -9,6 +9,7 @@ import {
     useWeb3ModalAccount,
     useWeb3ModalProvider,
 } from "@web3modal/ethers/react";
+import { toast } from 'react-toastify';
 
 
 function Register() {
@@ -73,8 +74,11 @@ function Register() {
 
       await handleRegisteration(name, fileUrl);
 
+      toast.success('succesful')
+      
     } catch (error) {
       console.log("Pinata API Error:", error);
+      toast.error(error.message)
     } finally {
       setIsLoading(false);
     }
@@ -83,7 +87,7 @@ function Register() {
   return (
     <div className='w-4/12 m-auto rounded-md p-5 bg-white shadow flex flex-col gap-y-2'>
         <form className='flex flex-col gap-y-4 w-9/12 m-auto'>
-            <h4 className='bg-gradient-to-r from-purple-300 to-red-500 bg-clip-text text-transparent font-bold text-[20px] text-center'>Register and chat with baddies</h4>
+            <h4 className='bg-gradient-to-r from-purple-300 to-red-500 bg-clip-text text-transparent font-bold text-[20px] text-center'>Register and chat lets do great things !</h4>
             {img && <img className='w-40 h-40 rounded-full m-auto' src={URL.createObjectURL(img)} alt="" />}
             <input type="file" accept='image/*' hidden id='img' onChange={(e) => setImg(e.target.files[0])}  />
             {!img && <label className='rounded-full m-auto bg-slate-300 p-2' htmlFor="img">
