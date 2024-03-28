@@ -7,16 +7,13 @@ function useGetEnsByAddr() {
 
     const {address} = useWeb3ModalAccount()
 
-    const [ens, setEns] = useState({
-        loading: true,
-        data: {},
-    });
+    const [ens, setEns] = useState('');
 
     useEffect(() => {
         const contract = getChatContract(readOnlyProvider);
 
         contract
-            .getEnsByAddress("0xc408235a9A01767d70B41C98d92F2dC7B0d959f4")
+            .getEnsByAddress(address)
             .then((res) => {
                 // const converted = res.map((item) => ({
                 //     name: item.name,
@@ -24,14 +21,21 @@ function useGetEnsByAddr() {
                 //     avatar: item.avatar,
                 //     isRegistered: item.isRegistered
                 // }));
+
+                const _home = {
+                    name: res[0],
+                    // wallet: res[1],
+
+                }
+                console.log(res[0])
                 setEns({
                     loading: false,
-                    data: res,
+                    data: res[0],
                 });
             })
             .catch((err) => {
-                console.error("error fetching ens: ", err);
-                setEns((prev) => ({ ...prev, loading: false }));
+                console.error("error fetching ens: ", err.message);
+                // setEns((prev) => ({ ...prev, loading: false }));
             });
     }, []);
 
