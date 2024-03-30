@@ -42,8 +42,6 @@ function Register() {
         console.log("register failed!");
     } catch (error) {
         console.log(error);
-
-        // console.error("error: ", errorText);
     }
 };
 

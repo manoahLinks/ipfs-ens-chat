@@ -1,7 +1,6 @@
 import { configureWeb3Modal } from "./connection";
 import { ChatContainer, Register } from './components';
 import { useWeb3ModalAccount } from "@web3modal/ethers/react";
-// import { useWeb3ModalAccount } from "@web3modal/ethers/react";
 import { getChatContract } from './constants/contracts';
 import { readOnlyProvider } from './constants/providers';
 import { useEffect, useState } from "react";
@@ -17,10 +16,6 @@ function App() {
 
   const {address} = useWeb3ModalAccount()
 
-    // const {loading, data: chats} = useGetChats();
-
-    // const {ens} = useGetEnsByAddr();
-
     const [ens, setEns] = useState('');
 
 
@@ -34,18 +29,13 @@ function App() {
 
                 const _home = {
                     name: res[0],
-                    // wallet: res[1],
-
                 }
-                // console.log(res[0])
                 setEns(
-                    // loading: false,
                     res[0],
                 );
             })
             .catch((err) => {
                 console.error("error fetching ens: ", err.message);
-                // setEns((prev) => ({ ...prev, loading: false }));
             });
         }
 

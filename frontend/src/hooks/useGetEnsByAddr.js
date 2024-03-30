@@ -15,17 +15,9 @@ function useGetEnsByAddr() {
         contract
             .getEnsByAddress(address)
             .then((res) => {
-                // const converted = res.map((item) => ({
-                //     name: item.name,
-                //     wallet: item.walletAddress,
-                //     avatar: item.avatar,
-                //     isRegistered: item.isRegistered
-                // }));
-
                 const _home = {
                     name: res[0],
-                    // wallet: res[1],
-
+                   
                 }
                 console.log(res[0])
                 setEns({
@@ -35,7 +27,6 @@ function useGetEnsByAddr() {
             })
             .catch((err) => {
                 console.error("error fetching ens: ", err.message);
-                // setEns((prev) => ({ ...prev, loading: false }));
             });
     }, []);
 
