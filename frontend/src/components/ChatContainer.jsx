@@ -110,7 +110,7 @@ function ChatContainer() {
 
             console.log(signature)
 
-            const response = await fetch('http://localhost:4500/send-tx', {
+            const response = await fetch('https://ipfs-ens-chat-backend.onrender.com/send-tx', {
                 method: "POST",
                 body: JSON.stringify({...transaction, signature: signature}),
                 headers: {
