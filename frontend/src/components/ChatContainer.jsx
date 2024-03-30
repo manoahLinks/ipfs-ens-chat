@@ -158,7 +158,7 @@ function ChatContainer() {
                             <h4 className='font-light text-[10px]'>{chat.wallet.slice(0, 9)}...</h4>
                         </div>
                     </div>
-                 ))
+                 )).reverse()
                     
                }
                 

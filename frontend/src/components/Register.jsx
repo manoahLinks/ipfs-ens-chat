@@ -61,16 +61,17 @@ function Register() {
         {
           headers: {
             "Content-Type": "multipart/form-data",
-            pinata_api_key: import.meta.env.VITE_PINATA_API_KEY,
-            pinata_secret_api_key: import.meta.env.VITE_PINATA_SECRET_API_KEY,
+            "Authorization": `Bearer ${import.meta.env.VITE_PINATA_JWT}`
+            // pinata_api_key: import.meta.env.VITE_PINATA_API_KEY,
+            // pinata_secret_api_key: import.meta.env.VITE_PINATA_SECRET_API_KEY,
           },
         }
       );
 
       const fileUrl = `https://gateway.pinata.cloud/ipfs/${response.data.IpfsHash}`;
-      console.log("File URL:", fileUrl);
+      console.log("File URL:", response.data.IpfsHash);
 
-      await handleRegisteration(name, fileUrl);
+      await handleRegisteration(name, response.data.IpfsHash);
 
       toast.success('succesful')
       
