@@ -67,6 +67,8 @@ function ChatContainer() {
 
             const msgs = await msgContract.getUsersMessages(address, to)
 
+            const msgs2 = await msgContract.getUsersMessages(to, address)
+
             const converted = msgs.map((item) => ({
                 id: item.id.toString(),
                 from: item.from,
@@ -74,9 +76,16 @@ function ChatContainer() {
                 content: item.content
             }));
 
-            setMessages(converted);
+            const converted2 = msgs2.map((item) => ({
+                id: item.id.toString(),
+                from: item.from,
+                to: item.to,
+                content: item.content
+            }));
 
-            console.log(converted)
+            setMessages([...converted, ...converted2].sort((a,b) => a.id - b.id));
+
+            console.log(messages)
         }
 
         fetchData()
@@ -86,12 +95,6 @@ function ChatContainer() {
     }, [to, messages]);
     
     const sendMessage = async () => {
-
-        const Message = {
-            from : address.toString() || '',
-            to: '',
-            message: "texting texting texting"
-        }
 
         const transaction = {
             from : address.toString() || '',
@@ -123,6 +126,7 @@ function ChatContainer() {
             if(response.ok) {
                 console.log(json)
                 setIsPending(false)
+                setMessage('')
                 toast.success("Msg sent...")
             }else{
                 console.log(json)
@@ -143,21 +147,25 @@ function ChatContainer() {
             <h4 className='font-bold text-[20px]'>All chats</h4>
             
             <div className='flex flex-col gap-y-2'>
-               {chats.length !== 0  && chats.map((chat)=> (
-                    <div onClick={() => {setTo(chat.wallet)}} key={chat.name} className='p-2 flex gap-x-2 shadow items-center hover:cursor-pointer bg-slate-200  hover:bg-white rounded-lg'>
-                        {/* <span className='p-2 rounded-full  bg-gradient-to-r from-purple-300 to-red-500'> */}
+               {chats.length !== 0  && chats.map((chat)=> ( 
+
+                    chat.wallet != address && (
+                        <div onClick={() => {setTo(chat.wallet)}} key={chat.name} className='p-2 flex gap-x-2 shadow items-center hover:cursor-pointer bg-slate-200  hover:bg-white rounded-lg'>
+                        <span className='rounded-full h-10 w-10'>
                             {/* <HiOutlineUser size={30}/> */}
                             <img 
-                                src={chat.avatar} 
-                                classeName='w-50 h-50 rounded-full' 
+                                src={`https://ipfs.io/ipfs/${chat.avatar}`} 
+                                className='w-10 h-10 rounded-full' 
                                 alt="ipfs img" 
                             />
-                        {/* </span> */}
+                        </span>
                         <div className='flex flex-col gap-y-1'>
                             <h4 className='font-bold text-slate-400'>{chat.name}</h4>
-                            <h4 className='font-light text-[10px]'>{chat.wallet.slice(0, 9)}...</h4>
+                            <h4 className='font-light text-[8px]'>{chat.wallet}</h4>
                         </div>
                     </div>
+                    )
+                    
                  )).reverse()
                     
                }
@@ -173,7 +181,7 @@ function ChatContainer() {
                <div className='flex flex-col gap-y-2'>
                 {messages && messages.length > 0 && messages.map((msg) => (
                       
-                       <div className={`${msg.from == address ? `bg-blue-300` : ` bg-green-300`} p-2`}>
+                       <div className={`${msg.from == address ? `bg-blue-300 text-left ml-auto` : ` bg-green-300 mr-auto`} p-2 flex`}>
                            <small>{msg.content}</small> 
                         </div>
                     ))}
